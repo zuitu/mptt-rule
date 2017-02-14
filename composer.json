@@ -1,0 +1,20 @@
+{
+    "name": "zuitu/mptt-rule",
+    "type": "library",
+    "description": "Matching data with rule based on mptt",
+    "keywords": ["mptt", "tree", "rule"],
+    "homepage": "https://github.com/zuitu/mptt-rule",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "xiaoqing.cao",
+            "email": "zuitu@foxmail.com",
+            "homepage": "https://my.oschina.net/theqing/blog",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "minimum-stability": "dev"
+}
