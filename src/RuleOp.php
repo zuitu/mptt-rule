@@ -4,19 +4,23 @@
  */
 namespace Zuitu\Rule;
 
-class RuleOp {
+class RuleOp
+{
     protected $nameList = null;
 
-    public function init(array $nameList) {
+    public function init(array $nameList)
+    {
         $this->nameList = $nameList;
         return $this;
     }
 
-    public function calc($op, $name, $value) {
+    public function calc($op, $name, $value)
+    {
         return $this->$op($name, $value);
     }
 
-    protected function neq($name, $value) {
+    protected function neq($name, $value)
+    {
         $my_value = $this->nameList[$name];
         $ret = false;
         if ($my_value != $value) {
@@ -25,7 +29,8 @@ class RuleOp {
         return $ret;
     }
 
-    protected function eq($name, $value) {
+    protected function eq($name, $value)
+    {
         $my_value = $this->nameList[$name];
         $ret = false;
         if ($my_value == $value) {
@@ -34,63 +39,70 @@ class RuleOp {
         return $ret;
     }
 
-    protected function gt($name, $value) {
+    protected function gt($name, $value)
+    {
         $my_value = $this->nameList[$name];
         $ret = false;
-        if ((int) $my_value > (int) $value) {
+        if ($my_value > $value) {
             $ret = true;
         }
         return $ret;
     }
 
-    protected function egt($name, $value) {
+    protected function egt($name, $value)
+    {
         $my_value = $this->nameList[$name];
         $ret = false;
-        if ((int) $my_value >= (int) $value) {
+        if ($my_value >= $value) {
             $ret = true;
         }
         return $ret;
     }
 
-    protected function lt($name, $value) {
+    protected function lt($name, $value)
+    {
         $my_value = $this->nameList[$name];
         $ret = false;
-        if ((int) $my_value < (int) $value) {
+        if ($my_value < $value) {
             $ret = true;
         }
         return $ret;
     }
 
-    protected function elt($name, $value) {
+    protected function elt($name, $value)
+    {
         $my_value = $this->nameList[$name];
         $ret = false;
-        if ((int) $my_value <= (int) $value) {
+        if ($my_value <= $value) {
             $ret = true;
         }
         return $ret;
     }
 
-    protected function btw($name, $value) {
-        $my_value = $this->nameList[$name];
-        $ret = false;
-        list($min, $max) = explode(',', $value);
-        if ((int) $my_value >= (int) $min && (int) $my_value <= (int) $max) {
-            $ret = true;
-        }
-        return $ret;
-    }
-
-    protected function nbtw($name, $value) {
+    protected function btw($name, $value)
+    {
         $my_value = $this->nameList[$name];
         $ret = false;
         list($min, $max) = explode(',', $value);
-        if ((int) $my_value <= (int) $min || (int) $my_value >= (int) $max) {
+        if ($my_value >= $min && $my_value <= $max) {
             $ret = true;
         }
         return $ret;
     }
 
-    public function __call($name, $args) {
+    protected function nbtw($name, $value)
+    {
+        $my_value = $this->nameList[$name];
+        $ret = false;
+        list($min, $max) = explode(',', $value);
+        if ($my_value <= $min || $my_value >= $max) {
+            $ret = true;
+        }
+        return $ret;
+    }
+
+    public function __call($name, $args)
+    {
         $ret = false;
         if (1 == ($args[3] - $args[2] + 1) / 2 + $args[4] - 1) {
             $ret = true;
