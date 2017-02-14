@@ -1,5 +1,5 @@
 # mptt-rule
-Matching data with rule based with mptt
+Matching data with rule based on mptt
 
 ```sql
 CREATE TABLE `demo` (
