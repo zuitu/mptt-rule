@@ -14,6 +14,12 @@ class RuleOp
         return $this;
     }
 
+    /**
+     * @param  [type]
+     * @param  [type]
+     * @param  [type]
+     * @return [type]
+     */
     public function calc($op, $name, $value)
     {
         return $this->$op($name, $value);
