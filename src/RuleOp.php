@@ -6,20 +6,14 @@ namespace Zuitu\Rule;
 
 class RuleOp
 {
-    protected $nameList = null;
-
-    public function init(array $nameList)
+    public function init(array $params)
     {
-        $this->nameList = $nameList;
+        foreach ($params as $key => $val) {
+            $this->$key = $val;
+        }
         return $this;
     }
 
-    /**
-     * @param  [type]
-     * @param  [type]
-     * @param  [type]
-     * @return [type]
-     */
     public function calc($op, $name, $value)
     {
         return $this->$op($name, $value);
@@ -27,9 +21,12 @@ class RuleOp
 
     protected function neq($name, $value)
     {
-        $my_value = $this->nameList[$name];
         $ret = false;
-        if ($my_value != $value) {
+        if (isset($this->$name)) {
+            if ($this->name != $value) {
+                $ret = true;
+            }
+        } else {
             $ret = true;
         }
         return $ret;
@@ -37,9 +34,12 @@ class RuleOp
 
     protected function eq($name, $value)
     {
-        $my_value = $this->nameList[$name];
         $ret = false;
-        if ($my_value == $value) {
+        if (isset($this->$name)) {
+            if ($this->name == $value) {
+                $ret = true;
+            }
+        } else {
             $ret = true;
         }
         return $ret;
@@ -47,9 +47,12 @@ class RuleOp
 
     protected function gt($name, $value)
     {
-        $my_value = $this->nameList[$name];
         $ret = false;
-        if ($my_value > $value) {
+        if (isset($this->$name)) {
+            if ($this->name > $value) {
+                $ret = true;
+            }
+        } else {
             $ret = true;
         }
         return $ret;
@@ -57,9 +60,12 @@ class RuleOp
 
     protected function egt($name, $value)
     {
-        $my_value = $this->nameList[$name];
         $ret = false;
-        if ($my_value >= $value) {
+        if (isset($this->$name)) {
+            if ($this->name >= $value) {
+                $ret = true;
+            }
+        } else {
             $ret = true;
         }
         return $ret;
@@ -67,9 +73,12 @@ class RuleOp
 
     protected function lt($name, $value)
     {
-        $my_value = $this->nameList[$name];
         $ret = false;
-        if ($my_value < $value) {
+        if (isset($this->$name)) {
+            if ($this->name < $value) {
+                $ret = true;
+            }
+        } else {
             $ret = true;
         }
         return $ret;
@@ -77,9 +86,12 @@ class RuleOp
 
     protected function elt($name, $value)
     {
-        $my_value = $this->nameList[$name];
         $ret = false;
-        if ($my_value <= $value) {
+        if (isset($this->$name)) {
+            if ($this->name <= $value) {
+                $ret = true;
+            }
+        } else {
             $ret = true;
         }
         return $ret;
@@ -87,10 +99,13 @@ class RuleOp
 
     protected function btw($name, $value)
     {
-        $my_value = $this->nameList[$name];
         $ret = false;
-        list($min, $max) = explode(',', $value);
-        if ($my_value >= $min && $my_value <= $max) {
+        if (isset($this->$name)) {
+            list($min, $max) = explode(',', $value);
+            if ($this->$name >= $min && $this->$name <= $max) {
+                $ret = true;
+            }
+        } else {
             $ret = true;
         }
         return $ret;
@@ -98,10 +113,13 @@ class RuleOp
 
     protected function nbtw($name, $value)
     {
-        $my_value = $this->nameList[$name];
         $ret = false;
-        list($min, $max) = explode(',', $value);
-        if ($my_value <= $min || $my_value >= $max) {
+        if (isset($this->$name)) {
+            list($min, $max) = explode(',', $value);
+            if ($this->$name < $min || $this->$name > $max) {
+                $ret = true;
+            }
+        } else {
             $ret = true;
         }
         return $ret;
@@ -114,5 +132,10 @@ class RuleOp
             $ret = true;
         }
         return $ret;
+    }
+
+    public function __get($name)
+    {
+        return null;
     }
 }
